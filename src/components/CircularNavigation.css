@@ -189,31 +189,31 @@
     align-items: center;
   }
 
-  /* Mobile: All buttons same size for clean zigzag look */
+  /* Mobile: Larger buttons using more available space */
   .nav-button.center {
-    width: clamp(100px, 16vw, 140px);
-    height: clamp(100px, 16vw, 140px);
-    font-size: clamp(1.0rem, 2.0vw, 1.4rem);
+    width: clamp(140px, 25vw, 200px);
+    height: clamp(140px, 25vw, 200px);
+    font-size: clamp(1.2rem, 2.8vw, 1.8rem);
   }
   
   .nav-button.left-top,
   .nav-button.left-bottom,
   .nav-button.right-top,
   .nav-button.right-bottom {
-    width: clamp(100px, 16vw, 140px);
-    height: clamp(100px, 16vw, 140px);
-    font-size: clamp(1.0rem, 2.0vw, 1.4rem);
+    width: clamp(140px, 25vw, 200px);
+    height: clamp(140px, 25vw, 200px);
+    font-size: clamp(1.2rem, 2.8vw, 1.8rem);
   }
 
-  /* Mobile: Zigzag vertical line arrangement */
+  /* Mobile: Zigzag vertical line arrangement - increased spacing */
   .nav-button.left-top {
     /* First button: slightly left */
-    transform: translate(-50%, -50%) translate(-8vw, -25vh);
+    transform: translate(-50%, -50%) translate(-12vw, -28vh);
   }
   
   .nav-button.left-bottom {
     /* Second button: slightly right */
-    transform: translate(-50%, -50%) translate(8vw, -12vh);
+    transform: translate(-50%, -50%) translate(12vw, -14vh);
   }
   
   .nav-button.center {
@@ -223,12 +223,12 @@
   
   .nav-button.right-bottom {
     /* Fourth button: slightly left */
-    transform: translate(-50%, -50%) translate(-8vw, 12vh);
+    transform: translate(-50%, -50%) translate(-12vw, 14vh);
   }
   
   .nav-button.right-top {
     /* Fifth button: slightly right */
-    transform: translate(-50%, -50%) translate(8vw, 25vh);
+    transform: translate(-50%, -50%) translate(12vw, 28vh);
   }
 }
 
@@ -265,34 +265,34 @@
   }
 }
 
-/* Small Mobile: Extra tight zigzag for very small screens */
+/* Small Mobile: Larger buttons for very small screens too */
 @media (max-width: 480px) {
   .nav-container {
-    height: 75vh;
-    min-height: 450px;
-    max-height: 600px;
+    height: 80vh;
+    min-height: 500px;
+    max-height: 650px;
   }
 
-  /* Smaller buttons for very small screens */
+  /* Larger buttons even on small screens - maximize usage */
   .nav-button.center,
   .nav-button.left-top,
   .nav-button.left-bottom,
   .nav-button.right-top,
   .nav-button.right-bottom {
-    width: clamp(80px, 14vw, 110px);
-    height: clamp(80px, 14vw, 110px);
-    font-size: clamp(0.8rem, 1.6vw, 1.1rem);
+    width: clamp(120px, 22vw, 170px);
+    height: clamp(120px, 22vw, 170px);
+    font-size: clamp(1.0rem, 2.4vw, 1.5rem);
   }
 
-  /* Tighter zigzag for small screens */
+  /* Optimized zigzag for small screens - more spacing */
   .nav-button.left-top {
     /* First button: slightly left */
-    transform: translate(-50%, -50%) translate(-6vw, -22vh);
+    transform: translate(-50%, -50%) translate(-10vw, -26vh);
   }
   
   .nav-button.left-bottom {
     /* Second button: slightly right */
-    transform: translate(-50%, -50%) translate(6vw, -11vh);
+    transform: translate(-50%, -50%) translate(10vw, -13vh);
   }
   
   .nav-button.center {
@@ -302,11 +302,11 @@
   
   .nav-button.right-bottom {
     /* Fourth button: slightly left */
-    transform: translate(-50%, -50%) translate(-6vw, 11vh);
+    transform: translate(-50%, -50%) translate(-10vw, 13vh);
   }
   
   .nav-button.right-top {
     /* Fifth button: slightly right */
-    transform: translate(-50%, -50%) translate(6vw, 22vh);
+    transform: translate(-50%, -50%) translate(10vw, 26vh);
   }
 }
