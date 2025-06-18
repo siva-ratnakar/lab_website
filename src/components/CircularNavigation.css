@@ -21,15 +21,15 @@
 
 .nav-button {
   position: absolute;
-  /* All buttons use same size system - reduced slightly to prevent overlap */
-  width: min(13vw, 180px);
-  height: min(13vw, 180px);
+  /* Responsive sizing - larger on bigger screens */
+  width: clamp(120px, 15vw, 250px);
+  height: clamp(120px, 15vw, 250px);
   border-radius: 50%;
   border: 3px solid #ffd700;
   cursor: pointer;
   background: #000000;
   color: #ffffff;
-  font-size: clamp(1.1rem, 2.0vw, 1.6rem);
+  font-size: clamp(1.1rem, 2.0vw, 2.2rem);
   font-weight: 600;
   display: flex;
   align-items: center;
@@ -139,9 +139,9 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: min(16vw, 220px); /* Slightly larger than others but reduced */
-  height: min(16vw, 220px);
-  font-size: clamp(1.4rem, 2.6vw, 2.0rem);
+  width: clamp(160px, 18vw, 300px); /* Larger center button */
+  height: clamp(160px, 18vw, 300px);
+  font-size: clamp(1.4rem, 2.6vw, 2.8rem);
   z-index: 10;
   border-width: 4px;
   box-shadow: 0 0 25px rgba(255, 215, 0, 0.4);
@@ -177,21 +177,77 @@
   transform: translate(-50%, -50%) translate(28vw, 15vh);
 }
 
-/* Responsive Design - Maintains perfect symmetry at all screen sizes */
-@media (max-width: 1200px) {  .nav-button.center {
-    width: min(18vw, 200px);
-    height: min(18vw, 200px);
-    font-size: clamp(1.2rem, 2.4vw, 1.8rem);
+/* Mobile Navigation: Zigzag Line Layout */
+@media (max-width: 768px) {
+  .nav-container {
+    height: 80vh;
+    min-height: 500px;
+    max-height: 700px;
+    /* Change to vertical stacking for mobile */
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  /* Mobile: All buttons same size for clean zigzag look */
+  .nav-button.center {
+    width: clamp(100px, 16vw, 140px);
+    height: clamp(100px, 16vw, 140px);
+    font-size: clamp(1.0rem, 2.0vw, 1.4rem);
   }
   
   .nav-button.left-top,
   .nav-button.left-bottom,
   .nav-button.right-top,
   .nav-button.right-bottom {
-    width: min(14vw, 160px);
-    height: min(14vw, 160px);
-    font-size: clamp(1.0rem, 1.8vw, 1.4rem);
-  }  /* Adjust spacing for medium screens */
+    width: clamp(100px, 16vw, 140px);
+    height: clamp(100px, 16vw, 140px);
+    font-size: clamp(1.0rem, 2.0vw, 1.4rem);
+  }
+
+  /* Mobile: Zigzag vertical line arrangement */
+  .nav-button.left-top {
+    /* First button: slightly left */
+    transform: translate(-50%, -50%) translate(-8vw, -25vh);
+  }
+  
+  .nav-button.left-bottom {
+    /* Second button: slightly right */
+    transform: translate(-50%, -50%) translate(8vw, -12vh);
+  }
+  
+  .nav-button.center {
+    /* Third button: center */
+    transform: translate(-50%, -50%) translate(0, 0);
+  }
+  
+  .nav-button.right-bottom {
+    /* Fourth button: slightly left */
+    transform: translate(-50%, -50%) translate(-8vw, 12vh);
+  }
+  
+  .nav-button.right-top {
+    /* Fifth button: slightly right */
+    transform: translate(-50%, -50%) translate(8vw, 25vh);
+  }
+}
+
+/* Responsive Design - Maintains perfect symmetry at all screen sizes */
+@media (max-width: 1200px) {
+  .nav-button.center {
+    width: clamp(140px, 16vw, 220px);
+    height: clamp(140px, 16vw, 220px);
+    font-size: clamp(1.2rem, 2.4vw, 2.2rem);
+  }
+  
+  .nav-button.left-top,
+  .nav-button.left-bottom,
+  .nav-button.right-top,
+  .nav-button.right-bottom {
+    width: clamp(110px, 13vw, 180px);
+    height: clamp(110px, 13vw, 180px);
+    font-size: clamp(1.0rem, 1.8vw, 1.8rem);
+  }/* Adjust spacing for medium screens */
   .nav-button.left-top {
     transform: translate(-50%, -50%) translate(-18vw, -12vh);
   }
@@ -209,76 +265,48 @@
   }
 }
 
-@media (max-width: 768px) {
-  .nav-container {
-    height: 70vh;
-    min-height: 400px;
-    max-height: 600px;
-  }
-  .nav-button.center {
-    width: min(20vw, 160px);
-    height: min(20vw, 160px);
-    font-size: clamp(1.1rem, 2.2vw, 1.6rem);
-  }
-  
-  .nav-button.left-top,
-  .nav-button.left-bottom,
-  .nav-button.right-top,
-  .nav-button.right-bottom {
-    width: min(16vw, 120px);
-    height: min(16vw, 120px);
-    font-size: clamp(0.9rem, 1.6vw, 1.2rem);
-  }  /* Closer positioning for tablets */
-  .nav-button.left-top {
-    transform: translate(-50%, -50%) translate(-16vw, -10vh);
-  }
-  
-  .nav-button.left-bottom {
-    transform: translate(-50%, -50%) translate(-23vw, 10vh);
-  }
-  
-  .nav-button.right-top {
-    transform: translate(-50%, -50%) translate(16vw, -10vh);
-  }
-  
-  .nav-button.right-bottom {
-    transform: translate(-50%, -50%) translate(23vw, 10vh);
-  }
-}
-
+/* Small Mobile: Extra tight zigzag for very small screens */
 @media (max-width: 480px) {
   .nav-container {
-    height: 60vh;
-    min-height: 350px;
-    max-height: 500px;
+    height: 75vh;
+    min-height: 450px;
+    max-height: 600px;
   }
-  .nav-button.center {
-    width: min(22vw, 110px);
-    height: min(22vw, 110px);
-    font-size: clamp(0.9rem, 1.8vw, 1.3rem);
-  }
-  
+
+  /* Smaller buttons for very small screens */
+  .nav-button.center,
   .nav-button.left-top,
   .nav-button.left-bottom,
   .nav-button.right-top,
   .nav-button.right-bottom {
-    width: min(18vw, 90px);
-    height: min(18vw, 90px);
-    font-size: clamp(0.8rem, 1.4vw, 1.0rem);
-  }  /* Compact positioning for mobile */
+    width: clamp(80px, 14vw, 110px);
+    height: clamp(80px, 14vw, 110px);
+    font-size: clamp(0.8rem, 1.6vw, 1.1rem);
+  }
+
+  /* Tighter zigzag for small screens */
   .nav-button.left-top {
-    transform: translate(-50%, -50%) translate(-15vw, -7vh);
+    /* First button: slightly left */
+    transform: translate(-50%, -50%) translate(-6vw, -22vh);
   }
   
   .nav-button.left-bottom {
-    transform: translate(-50%, -50%) translate(-20vw, 8vh);
+    /* Second button: slightly right */
+    transform: translate(-50%, -50%) translate(6vw, -11vh);
   }
   
-  .nav-button.right-top {
-    transform: translate(-50%, -50%) translate(15vw, -7vh);
+  .nav-button.center {
+    /* Third button: center */
+    transform: translate(-50%, -50%) translate(0, 0);
   }
   
   .nav-button.right-bottom {
-    transform: translate(-50%, -50%) translate(20vw, 8vh);
+    /* Fourth button: slightly left */
+    transform: translate(-50%, -50%) translate(-6vw, 11vh);
+  }
+  
+  .nav-button.right-top {
+    /* Fifth button: slightly right */
+    transform: translate(-50%, -50%) translate(6vw, 22vh);
   }
 }

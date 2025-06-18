@@ -15,29 +15,50 @@ const CircularNavigation = () => {
     { name: 'Publications', path: '/publications', position: 'right-top' }
   ];useEffect(() => {
     // Stagger animation for buttons
-    const buttons = buttonsRef.current.filter(Boolean);
-      // Function to get responsive values
+    const buttons = buttonsRef.current.filter(Boolean);    // Function to get responsive values and layout type
     const getResponsiveValues = () => {
       const width = window.innerWidth;
+      const isMobile = width <= 768;
       return {
-        staggerDelay: width < 768 ? 0.15 : 0.2,
-        animationDuration: width < 768 ? 0.6 : 0.8
+        staggerDelay: isMobile ? 0.12 : 0.2,
+        animationDuration: isMobile ? 0.5 : 0.8,
+        isMobile: isMobile
       };
     };
     
-    let { staggerDelay, animationDuration } = getResponsiveValues();    // Individual button animations with stagger - only opacity and scale, let CSS handle positioning
-    buttons.forEach((button, index) => {
+    let { staggerDelay, animationDuration, isMobile } = getResponsiveValues();
+
+    // Different animation order for mobile zigzag vs desktop circular
+    const getAnimationOrder = () => {
+      if (isMobile) {
+        // Mobile: Animate in zigzag order (top to bottom)
+        return ['left-top', 'left-bottom', 'center', 'right-bottom', 'right-top'];
+      } else {
+        // Desktop: Animate in circular order
+        return ['left-top', 'right-top', 'center', 'left-bottom', 'right-bottom'];
+      }
+    };
+
+    const animationOrder = getAnimationOrder();
+    
+    // Reorder buttons based on animation sequence
+    const orderedButtons = animationOrder.map(position => 
+      buttons.find((_, index) => navigationItems[index].position === position)
+    ).filter(Boolean);    // Individual button animations with stagger - start smaller, end at normal size
+    orderedButtons.forEach((button, index) => {
+      if (!button) return;
+      
       gsap.fromTo(button,
         { 
           opacity: 0, 
-          scale: 0.2  // Start much smaller to prevent initial overlap
+          scale: 0.1  // Start much smaller
         },
         { 
           opacity: 1, 
-          scale: 0.85,  // End at smaller scale to prevent overlap on load
+          scale: 1.0,  // End at normal CSS size
           duration: animationDuration,
           delay: index * staggerDelay,
-          ease: "back.out(1.7)",
+          ease: isMobile ? "back.out(1.2)" : "back.out(1.7)", // Gentler bounce on mobile
           scrollTrigger: {
             trigger: containerRef.current,
             start: "top 70%",
@@ -45,32 +66,49 @@ const CircularNavigation = () => {
           }
         }
       );
-    });// Enhanced scroll-based scaling only - let CSS handle all positioning
+    });// Enhanced scroll-based scaling - responsive to layout type
     buttons.forEach((button, index) => {
-      const position = navigationItems[index].position;      if (position.includes('left') || position.includes('right')) {
-        // Side buttons scale on scroll - from smaller base to prevent overlap
+      const position = navigationItems[index].position;
+
+      if (isMobile) {
+        // Mobile: Gentle pulsing effect for zigzag layout
         gsap.to(button, {
-          scale: 1.0,  // Scale up to normal size on scroll
+          scale: 1.05,
           ease: "power2.out",
           scrollTrigger: {
             trigger: containerRef.current,
             start: "top bottom",
             end: "bottom top",
-            scrub: 1.5
+            scrub: 2
           }
         });
-      } else if (position === 'center') {
-        // Center button scales slightly more
-        gsap.to(button, {
-          scale: 0.95,  // Slightly smaller than sides to prevent overlap
-          ease: "power2.out",
-          scrollTrigger: {
-            trigger: containerRef.current,
-            start: "top bottom",
-            end: "bottom top",
-            scrub: 1.5
-          }
-        });
+      } else {
+        // Desktop: Different scaling based on position for circular layout
+        if (position.includes('left') || position.includes('right')) {
+          const scaleMultiplier = window.innerWidth > 1200 ? 1.15 : window.innerWidth > 768 ? 1.1 : 1.05;
+          gsap.to(button, {
+            scale: scaleMultiplier,
+            ease: "power2.out",
+            scrollTrigger: {
+              trigger: containerRef.current,
+              start: "top bottom",
+              end: "bottom top",
+              scrub: 1.5
+            }
+          });
+        } else if (position === 'center') {
+          const scaleMultiplier = window.innerWidth > 1200 ? 1.1 : 1.05;
+          gsap.to(button, {
+            scale: scaleMultiplier,
+            ease: "power2.out",
+            scrollTrigger: {
+              trigger: containerRef.current,
+              start: "top bottom",
+              end: "bottom top",
+              scrub: 1.5
+            }
+          });
+        }
       }
     });// Handle window resize for responsive animations
     const handleResize = () => {
