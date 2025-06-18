@@ -15,7 +15,7 @@ A modern, multi-page React website for a biology research laboratory featuring a
 
 ## Live Demo
 
-Visit the live website: [https://YOUR_USERNAME.github.io/lab_website/](https://YOUR_USERNAME.github.io/lab_website/)
+Visit the live website: [https://siva-ratnakar.github.io/lab_website/](https://siva-ratnakar.github.io/lab_website/)
 
 ## Local Development
 
