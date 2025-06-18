@@ -1,0 +1,132 @@
+/* Navigation Wrapper - Takes 10% of viewport height */
+.nav-wrapper {
+  width: 100%;
+  height: 10vh;
+  z-index: 1000;
+  position: relative;
+}
+
+.nav-wrapper.sticky {
+  position: fixed;
+  top: 0;
+}
+
+.nav-wrapper.bottom {
+  position: fixed;
+  bottom: 0;
+  height: auto;
+}
+
+/* Navigation Bar Container */
+.nav-bar {
+  width: 100%;
+  height: 100%;
+  background: #000000;
+  border-bottom: 2px solid #ffd700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.nav-wrapper.bottom .nav-bar {
+  border-top: 2px solid #ffd700;
+  border-bottom: none;
+  height: 10vh;
+}
+
+/* Navigation Content */
+.nav-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  height: 100%;
+  max-width: 1200px;
+  width: 100%;
+  padding: 0 2rem;
+}
+
+/* Navigation Buttons */
+.nav-btn {
+  padding: 0.4rem 1rem;
+  background: #000000;
+  border: 1.5px solid #ffd700;
+  border-radius: 4px;
+  color: #ffffff;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-decoration: none;
+  outline: none;
+  white-space: nowrap;
+  height: auto;
+  min-height: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.nav-btn:hover {
+  background: rgba(255, 215, 0, 0.1);
+  border-color: #ffed4e;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(255, 215, 0, 0.2);
+}
+
+.nav-btn:active {
+  transform: translateY(0);
+}
+
+.nav-btn.active {
+  background: rgba(255, 215, 0, 0.15);
+  border-color: #ffed4e;
+  box-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .nav-wrapper {
+    height: 8vh;
+  }
+  
+  .nav-content {
+    gap: 1rem;
+    padding: 0 1rem;
+    flex-wrap: wrap;
+  }
+  
+  .nav-btn {
+    padding: 0.3rem 0.8rem;
+    font-size: 0.8rem;
+    min-height: 2rem;
+  }
+    .nav-wrapper.bottom .nav-bar {
+    height: 8vh;
+  }
+}
+
+@media (max-width: 480px) {
+  .nav-wrapper {
+    height: 7vh;
+  }
+  
+  .nav-content {
+    gap: 0.5rem;
+    padding: 0 0.5rem;
+  }
+  
+  .nav-btn {
+    padding: 0.25rem 0.6rem;
+    font-size: 0.75rem;
+    min-height: 1.8rem;
+  }
+    .nav-wrapper.bottom .nav-bar {
+    height: 7vh;
+  }
+}
+
+/* Ensure content below navigation doesn't overlap */
+.nav-wrapper + * {
+  margin-top: 0;
+}

@@ -1,0 +1,284 @@
+.circular-navigation {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.nav-container {
+  position: relative;
+  width: 100vw;
+  height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 500px;
+  max-height: 800px;
+  /* Container serves as the coordinate system center */
+}
+
+.nav-button {
+  position: absolute;
+  /* All buttons use same size system - reduced slightly to prevent overlap */
+  width: min(13vw, 180px);
+  height: min(13vw, 180px);
+  border-radius: 50%;
+  border: 3px solid #ffd700;
+  cursor: pointer;
+  background: #000000;
+  color: #ffffff;
+  font-size: clamp(1.1rem, 2.0vw, 1.6rem);
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+  overflow: hidden;
+  /* All buttons positioned from center using same transform origin */
+  transform-origin: center center;
+}
+
+.nav-button::before {
+  content: '';
+  position: absolute;
+  top: 10%;
+  left: 10%;
+  width: 30%;
+  height: 30%;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.05), transparent);
+  border-radius: 50%;
+  filter: blur(10px);
+}
+
+.nav-button::after {
+  content: '';
+  position: absolute;
+  top: 0%;
+  left: 0;
+  width: 100%;
+  height: 110%;
+  background: linear-gradient(90deg, 
+    transparent 0%, 
+    rgba(255, 215, 0, 0.05) 20%,
+    rgba(255, 215, 0, 0.3) 50%,
+    rgba(255, 215, 0, 0.05) 80%,
+    transparent 100%
+  );
+  opacity: 0;
+  filter: blur(2px) drop-shadow(0 0 10px rgba(255, 215, 0, 0.3));
+  transition: all 0.6s ease;  animation: none;
+}
+
+.nav-button:hover::after {
+  opacity: 1;
+  animation: glitterSweep 1.5s ease-in-out;
+  filter: blur(1px) drop-shadow(0 0 15px rgba(255, 215, 0, 0.5));
+}
+
+@keyframes glitterSweep {
+  0% { 
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% { 
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
+
+.nav-button:hover {
+  transform: scale(1.05);
+  border-color: #ffed4e;
+  box-shadow: 
+    0 0 30px rgba(20, 20, 20, 0.5),
+    inset 0 0 0 0 transparent;
+}
+
+.nav-button:hover::after {
+  opacity: 1;
+  animation: glitterSweep 1.5s ease-in-out;
+  filter: blur(1px) drop-shadow(0 0 15px rgba(255, 215, 0, 1));
+}
+
+.nav-button:active {
+  transform: scale(0.95);
+}
+
+.button-text {
+  position: relative;
+  z-index: 2;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
+}
+
+.button-glow {
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  border-radius: 50%;
+  background: linear-gradient(45deg, #373b23, #747526, #000000);
+  z-index: -1;
+  filter: blur(4px);
+  opacity: 0.7;
+}
+
+/* NEW ARCHITECTURE: All positioning from center with symmetric coordinate system */
+
+/* Center button - exactly at center */
+.nav-button.center {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: min(16vw, 220px); /* Slightly larger than others but reduced */
+  height: min(16vw, 220px);
+  font-size: clamp(1.4rem, 2.6vw, 2.0rem);
+  z-index: 10;
+  border-width: 4px;
+  box-shadow: 0 0 25px rgba(255, 215, 0, 0.4);
+}
+
+/* Left side buttons - positioned relative to center */
+.nav-button.left-top {
+  top: 50%;
+  left: 50%;
+  /* Move left by 20vw, up by 16vh - moved 4vh higher from previous position */
+  transform: translate(-50%, -50%) translate(-20vw, -16vh);
+}
+
+.nav-button.left-bottom {
+  top: 50%;
+  left: 50%;
+  /* Move left by 28vw, down by 15vh - keeping current position */
+  transform: translate(-50%, -50%) translate(-28vw, 15vh);
+}
+
+/* Right side buttons - mirror of left side */
+.nav-button.right-top {
+  top: 50%;
+  left: 50%;
+  /* Move right by 20vw, up by 16vh - moved 4vh higher from previous position */
+  transform: translate(-50%, -50%) translate(20vw, -16vh);
+}
+
+.nav-button.right-bottom {
+  top: 50%;
+  left: 50%;
+  /* Move right by 28vw, down by 15vh - keeping current position */
+  transform: translate(-50%, -50%) translate(28vw, 15vh);
+}
+
+/* Responsive Design - Maintains perfect symmetry at all screen sizes */
+@media (max-width: 1200px) {  .nav-button.center {
+    width: min(18vw, 200px);
+    height: min(18vw, 200px);
+    font-size: clamp(1.2rem, 2.4vw, 1.8rem);
+  }
+  
+  .nav-button.left-top,
+  .nav-button.left-bottom,
+  .nav-button.right-top,
+  .nav-button.right-bottom {
+    width: min(14vw, 160px);
+    height: min(14vw, 160px);
+    font-size: clamp(1.0rem, 1.8vw, 1.4rem);
+  }  /* Adjust spacing for medium screens */
+  .nav-button.left-top {
+    transform: translate(-50%, -50%) translate(-18vw, -12vh);
+  }
+  
+  .nav-button.left-bottom {
+    transform: translate(-50%, -50%) translate(-25vw, 12vh);
+  }
+  
+  .nav-button.right-top {
+    transform: translate(-50%, -50%) translate(18vw, -12vh);
+  }
+  
+  .nav-button.right-bottom {
+    transform: translate(-50%, -50%) translate(25vw, 12vh);
+  }
+}
+
+@media (max-width: 768px) {
+  .nav-container {
+    height: 70vh;
+    min-height: 400px;
+    max-height: 600px;
+  }
+  .nav-button.center {
+    width: min(20vw, 160px);
+    height: min(20vw, 160px);
+    font-size: clamp(1.1rem, 2.2vw, 1.6rem);
+  }
+  
+  .nav-button.left-top,
+  .nav-button.left-bottom,
+  .nav-button.right-top,
+  .nav-button.right-bottom {
+    width: min(16vw, 120px);
+    height: min(16vw, 120px);
+    font-size: clamp(0.9rem, 1.6vw, 1.2rem);
+  }  /* Closer positioning for tablets */
+  .nav-button.left-top {
+    transform: translate(-50%, -50%) translate(-16vw, -10vh);
+  }
+  
+  .nav-button.left-bottom {
+    transform: translate(-50%, -50%) translate(-23vw, 10vh);
+  }
+  
+  .nav-button.right-top {
+    transform: translate(-50%, -50%) translate(16vw, -10vh);
+  }
+  
+  .nav-button.right-bottom {
+    transform: translate(-50%, -50%) translate(23vw, 10vh);
+  }
+}
+
+@media (max-width: 480px) {
+  .nav-container {
+    height: 60vh;
+    min-height: 350px;
+    max-height: 500px;
+  }
+  .nav-button.center {
+    width: min(22vw, 110px);
+    height: min(22vw, 110px);
+    font-size: clamp(0.9rem, 1.8vw, 1.3rem);
+  }
+  
+  .nav-button.left-top,
+  .nav-button.left-bottom,
+  .nav-button.right-top,
+  .nav-button.right-bottom {
+    width: min(18vw, 90px);
+    height: min(18vw, 90px);
+    font-size: clamp(0.8rem, 1.4vw, 1.0rem);
+  }  /* Compact positioning for mobile */
+  .nav-button.left-top {
+    transform: translate(-50%, -50%) translate(-15vw, -7vh);
+  }
+  
+  .nav-button.left-bottom {
+    transform: translate(-50%, -50%) translate(-20vw, 8vh);
+  }
+  
+  .nav-button.right-top {
+    transform: translate(-50%, -50%) translate(15vw, -7vh);
+  }
+  
+  .nav-button.right-bottom {
+    transform: translate(-50%, -50%) translate(20vw, 8vh);
+  }
+}

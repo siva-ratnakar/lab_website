@@ -1,0 +1,218 @@
+.team-page {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #2a2a2a 100%);
+  padding: 0;
+}
+
+.team-header {
+  height: 75vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: #000000;
+  position: relative;
+}
+
+.team-title {
+  font-size: 4rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 2rem;
+  text-align: center;
+  letter-spacing: 2px;
+}
+
+.title-underline {
+  height: 4px;
+  background: linear-gradient(90deg, #ffd700, #ffed4e, #ffd700);
+  border-radius: 2px;
+  box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+}
+
+.team-content {
+  padding: 4rem 0 12rem 0;
+  background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #2a2a2a 100%);
+}
+
+.team-member {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  align-items: center;
+  margin: 4rem 0;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  padding: 3rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 
+    0 20px 40px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.team-member.right {
+  grid-template-columns: 1fr 1fr;
+}
+
+.team-member.right .member-image {
+  order: 2;
+}
+
+.team-member.right .member-info {
+  order: 1;
+}
+
+.member-image {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.member-photo {
+  width: 250px;
+  height: 250px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #ffd700;
+  box-shadow: 
+    0 0 30px rgba(255, 215, 0, 0.3),
+    inset 0 10px 20px rgba(255, 255, 255, 0.1),
+    inset 0 -10px 20px rgba(0, 0, 0, 0.3);
+}
+
+.image-placeholder {
+  width: 250px;
+  height: 250px;
+  background: linear-gradient(135deg, #2a2a2a 0%, #3a3a3a 50%, #2a2a2a 100%);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 3px solid #ffd700;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 
+    0 0 30px rgba(255, 215, 0, 0.3),
+    inset 0 10px 20px rgba(255, 255, 255, 0.1),
+    inset 0 -10px 20px rgba(0, 0, 0, 0.3);
+}
+
+.image-placeholder::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.3), transparent);
+  animation: shimmer 3s infinite;
+}
+
+.image-placeholder span {
+  color: #ffd700;
+  font-size: 1.1rem;
+  font-weight: 500;
+  z-index: 1;
+}
+
+.member-info {
+  padding: 1rem;
+}
+
+.member-name {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 0.5rem;
+  background: linear-gradient(135deg, #ffffff 0%, #cccccc 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.member-role {
+  font-size: 1.2rem;
+  color: #ffd700;
+  margin-bottom: 1rem;
+  font-weight: 500;
+}
+
+.member-description {
+  font-size: 1rem;
+  line-height: 1.8;
+  color: #cccccc;
+  max-width: 500px;
+}
+
+/* Hover effects */
+.team-member:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 215, 0, 0.3);
+  transform: translateY(-5px);
+  transition: all 0.1s ease;
+}
+
+.team-member:hover .image-placeholder {
+  box-shadow: 
+    0 0 40px rgba(255, 215, 0, 0.5),
+    inset 0 10px 20px rgba(255, 255, 255, 0.15),
+    inset 0 -10px 20px rgba(0, 0, 0, 0.3);
+}
+
+@keyframes shimmer {
+  0% { left: -100%; }
+  100% { left: 100%; }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .team-title {
+    font-size: 2.5rem;
+  }
+  
+  .team-member {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    margin: 2rem 0;
+    padding: 2rem;
+    text-align: center;
+  }
+  
+  .team-member.right .member-image,
+  .team-member.right .member-info {
+    order: unset;
+  }
+  
+  .image-placeholder {
+    width: 200px;
+    height: 200px;
+  }
+  
+  .member-name {
+    font-size: 1.5rem;
+  }
+  
+  .team-content {
+    padding: 2rem 0;
+  }
+  
+  .container {
+    padding: 0 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .team-title {
+    font-size: 2rem;
+  }
+  
+  .image-placeholder {
+    width: 150px;
+    height: 150px;
+  }
+  
+  .team-member {
+    padding: 1.5rem;
+  }
+}

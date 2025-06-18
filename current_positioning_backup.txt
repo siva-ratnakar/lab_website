@@ -1,0 +1,52 @@
+CURRENT POSITIONING VALUES - BACKUP
+=====================================
+
+Current CSS positioning (flawed architecture):
+
+.nav-button.center {
+  top: 25%;
+  left: 7.5%;
+  transform: translate(-50%, -50%);
+  width: min(20vw, 200px);
+  height: min(20vw, 200px);
+}
+
+.nav-button.left-top {
+  top: 47%;
+  left: 0vw;
+  transform: translateY(-50%);
+  width: min(15vw, 200px);
+  height: min(15vw, 200px);
+}
+
+.nav-button.left-bottom {
+  bottom: 2%;
+  left: 0vw;
+  transform: translateY(50%);
+  width: min(15vw, 200px);
+  height: min(15vw, 200px);
+}
+
+.nav-button.right-top {
+  top: 25%;
+  right: 0vw;
+  transform: translateY(-50%);
+  width: min(15vw, 200px);
+  height: min(15vw, 200px);
+}
+
+.nav-button.right-bottom {
+  bottom: 25%;
+  right: 0vw;
+  transform: translateY(50%);
+  width: min(15vw, 200px);
+  height: min(15vw, 200px);
+}
+
+ISSUES IDENTIFIED:
+- Mixed reference points (top, bottom, left, right)
+- Different transform origins
+- Asymmetric positioning between left and right
+- Center button not actually centered
+- Responsive breakpoints don't maintain proportions
+- Architecture fundamentally flawed for symmetry
